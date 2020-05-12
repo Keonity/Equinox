@@ -5,6 +5,8 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public CharacterController2D controller;
+    public Animator animator;
+    public AudioClip jumpClip;
 
     public float runSpeed = 25f;
 
@@ -12,26 +14,43 @@ public class PlayerMovement : MonoBehaviour
 
     bool jumpFlag = false;
     bool jump = false;
+    bool teleporting = false;
 
-    public void OnLanding()
-    {
-        jump = false;
-    }
+
 
     // Update is called once per frame
     void Update()
     {
         horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
 
+        animator.SetFloat("Speed", Mathf.Abs(horizontalMove));
+
         if (jumpFlag)
         {
+            animator.SetBool("isJumping", true);
             jumpFlag = false;
         }
 
         if (Input.GetButtonDown("Jump"))
         {
-            jump = true;
+            if (animator.GetBool("isJumping") == false)
+            {
+                //AudioSource.PlayClipAtPoint(jumpClip, transform.position);
+                jump = true;
+                animator.SetBool("isJumping", true);
+            }
         }
+
+        if (Input.GetButtonDown("Fire1"))
+        {
+            animator.SetBool("Teleport", true);
+        }
+    }
+
+    public void OnLanding()
+    {
+        animator.SetBool("isJumping", false);
+        jump = false;
     }
 
     void FixedUpdate()

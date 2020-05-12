@@ -326,6 +326,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 170703186}
+  animator: {fileID: 170703184}
+  jumpClip: {fileID: 0}
   runSpeed: 25
 --- !u!1 &424932000
 GameObject:
