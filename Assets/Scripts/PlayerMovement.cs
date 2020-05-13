@@ -15,8 +15,7 @@ public class PlayerMovement : MonoBehaviour
     bool jumpFlag = false;
     bool jump = false;
     bool teleporting = false;
-
-
+    bool teleported = false;
 
     // Update is called once per frame
     void Update()
@@ -44,6 +43,7 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetButtonDown("Fire1"))
         {
             animator.SetBool("Teleport", true);
+
         }
     }
 
