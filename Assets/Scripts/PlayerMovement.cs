@@ -14,7 +14,6 @@ public class PlayerMovement : MonoBehaviour
 
     bool jumpFlag = false;
     bool jump = false;
-    bool teleporting = false;
     bool teleported = false;
 
     // Update is called once per frame
@@ -42,9 +41,42 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetButtonDown("Fire1"))
         {
-            animator.SetBool("Teleport", true);
+
+            if (animator.GetBool("Teleport") == false)
+            {
+                //AudioSource.PlayClipAtPoint(teleportClip, transform.position);
+                if (teleported)
+                {
+                    this.transform.position = new Vector3(transform.position.x - 49, transform.position.y + 1, transform.position.z);
+                    teleported = false;
+                }
+                else if (teleported == false)
+                {
+                    this.transform.position = new Vector3(transform.position.x + 49, transform.position.y + 1, transform.position.z);
+                    teleported = true;
+                }
+                animator.SetTrigger("Teleport");
+            }
 
         }
+    }
+
+    public void Death()
+    {
+        Destroy(this.gameObject, 1f);
+    }
+    public void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (LayerMask.LayerToName(collision.gameObject.layer) == "Death")
+        {
+            animator.SetBool("isDead", true);
+        }
+
+        else if (LayerMask.LayerToName(collision.gameObject.layer) == "Enemy")
+        {
+            animator.SetBool("isDead", true);
+        }
+
     }
 
     public void OnLanding()
