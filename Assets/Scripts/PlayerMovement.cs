@@ -14,6 +14,8 @@ public class PlayerMovement : MonoBehaviour
 
     bool jumpFlag = false;
     bool jump = false;
+
+    public float teleportTime = 1f;
     bool teleported = false;
 
     // Update is called once per frame
@@ -45,20 +47,38 @@ public class PlayerMovement : MonoBehaviour
             if (animator.GetBool("Teleport") == false)
             {
                 //AudioSource.PlayClipAtPoint(teleportClip, transform.position);
-                if (teleported)
+                /*if (teleported)
                 {
-                    this.transform.position = new Vector3(transform.position.x - 49, transform.position.y + 1, transform.position.z);
+                    this.transform.position = new Vector3(transform.position.x - 49, transform.position.y + 0.2f, transform.position.z);
                     teleported = false;
                 }
                 else if (teleported == false)
                 {
-                    this.transform.position = new Vector3(transform.position.x + 49, transform.position.y + 1, transform.position.z);
+                    this.transform.position = new Vector3(transform.position.x + 49, transform.position.y + 0.2f, transform.position.z);
                     teleported = true;
-                }
+                }*/
+                StartCoroutine(Teleportation(teleportTime));
                 animator.SetTrigger("Teleport");
             }
 
         }
+    }
+
+    IEnumerator Teleportation(float time)
+    {
+        yield return new WaitForSeconds(time);
+
+        if (teleported)
+        {
+            this.transform.position = new Vector3(transform.position.x - 49, transform.position.y + 0.2f, transform.position.z);
+            teleported = false;
+        }
+        else if (teleported == false)
+        {
+            this.transform.position = new Vector3(transform.position.x + 49, transform.position.y + 0.2f, transform.position.z);
+            teleported = true;
+        }
+
     }
 
     public void Death()
