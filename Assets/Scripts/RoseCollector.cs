@@ -5,18 +5,18 @@ using UnityEngine.UI;
 
 public class RoseCollector : MonoBehaviour
 {
-    private Text scoreText;
+    private Text Score;
     public AudioClip pickupClip;
 
-    private void Start()
+    void Start()
     {
-        scoreText = GameObject.Find("Score").GetComponent<Text>();
+        Score = GameObject.Find("ScoreText").GetComponent<Text>();
     }
-    private void OnCollisionEnter2D(Collision2D collision)
+    void OnCollisionEnter2D(Collision2D collision)
     {
         Destroy(this.gameObject);
         AudioSource.PlayClipAtPoint(pickupClip, transform.position);
-        scoreText.GetComponent<scoreController>().score += 1;
-        scoreText.GetComponent<scoreController>().UpdateScore();
+        Score.GetComponent<ScoreController>().scoreNum += 1;
+        Score.GetComponent<ScoreController>().UpdateScore();
     }
 }

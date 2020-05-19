@@ -3,14 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class scoreController : MonoBehaviour
+public class ScoreController : MonoBehaviour
 {
-    public int score = 0;
+    public int scoreNum = 0;
     public Text Score;
-    private Text scoreText;
+
+    private void Start()
+    {
+    }
 
     public void UpdateScore()
     {
-        Score.text = "Score: " + score;
+        Score.text = "Score: " + scoreNum;
     }
 }

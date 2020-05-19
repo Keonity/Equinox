@@ -7,6 +7,10 @@ public class PlayerMovement : MonoBehaviour
     public CharacterController2D controller;
     public Animator animator;
     public AudioClip jumpClip;
+    public AudioClip teleportClip;
+    public AudioClip runClip;
+    public AudioClip iceClip;
+    public AudioClip victoryClip;
 
     public float runSpeed = 25f;
 
@@ -25,6 +29,7 @@ public class PlayerMovement : MonoBehaviour
 
         animator.SetFloat("Speed", Mathf.Abs(horizontalMove));
 
+
         if (jumpFlag)
         {
             animator.SetBool("isJumping", true);
@@ -33,9 +38,10 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetButtonDown("Jump"))
         {
+
             if (animator.GetBool("isJumping") == false)
             {
-                //AudioSource.PlayClipAtPoint(jumpClip, transform.position);
+                AudioSource.PlayClipAtPoint(jumpClip, transform.position);
                 jump = true;
                 animator.SetBool("isJumping", true);
             }
@@ -46,17 +52,7 @@ public class PlayerMovement : MonoBehaviour
 
             if (animator.GetBool("Teleport") == false)
             {
-                //AudioSource.PlayClipAtPoint(teleportClip, transform.position);
-                /*if (teleported)
-                {
-                    this.transform.position = new Vector3(transform.position.x - 49, transform.position.y + 0.2f, transform.position.z);
-                    teleported = false;
-                }
-                else if (teleported == false)
-                {
-                    this.transform.position = new Vector3(transform.position.x + 49, transform.position.y + 0.2f, transform.position.z);
-                    teleported = true;
-                }*/
+                AudioSource.PlayClipAtPoint(teleportClip, transform.position);
                 StartCoroutine(Teleportation(teleportTime));
                 animator.SetTrigger("Teleport");
             }
@@ -81,6 +77,18 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
+    IEnumerator Running(float time)
+    {
+        yield return new WaitForSeconds(time);
+        AudioSource.PlayClipAtPoint(runClip, transform.position);
+    }
+
+    IEnumerator RunningIce(float time)
+    {
+        yield return new WaitForSeconds(time);
+        AudioSource.PlayClipAtPoint(iceClip, transform.position);
+    }
+
     public void Death()
     {
         Destroy(this.gameObject, 1f);
@@ -95,6 +103,27 @@ public class PlayerMovement : MonoBehaviour
         else if (LayerMask.LayerToName(collision.gameObject.layer) == "Enemy")
         {
             animator.SetBool("isDead", true);
+        }
+
+        else if (LayerMask.LayerToName(collision.gameObject.layer) == "Ice")
+        {
+            if (horizontalMove > 0.01)
+            {
+                RunningIce(0.2f);
+            }
+        }
+
+        else if (LayerMask.LayerToName(collision.gameObject.layer) == "Victory")
+        {
+            AudioSource.PlayClipAtPoint(victoryClip, transform.position);
+        }
+        
+        else
+        {
+            if (Mathf.Abs(horizontalMove) > 0.01)
+            {
+                Running(0.2f);
+            }
         }
 
     }

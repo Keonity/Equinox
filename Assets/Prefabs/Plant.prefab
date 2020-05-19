@@ -117,6 +117,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bullet: {fileID: 3572108927758179261, guid: 2dc87fd92159e7f459fd15603bde1559, type: 3}
+  fireClip: {fileID: 8300000, guid: 6739c01659ad96d47987f4ddee226b36, type: 3}
   fireMax: 1
 --- !u!58 &5721391220783392727
 CircleCollider2D:

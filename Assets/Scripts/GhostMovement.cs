@@ -7,6 +7,23 @@ public class GhostMovement : MonoBehaviour
     private float floatingTimer = 0f;
     public float floatingMax = 1f;
     public float floatingDir = 0.01f;
+    public AudioClip ghostClip;
+
+    IEnumerator GhostSound(float time)
+    {
+        yield return new WaitForSeconds(time);
+        AudioSource.PlayClipAtPoint(ghostClip, transform.position);
+    }
+
+    private void Start()
+    {
+        GhostSound(1f);
+    }
+
+    private void Update()
+    {
+        GhostSound(25f);
+    }
 
     private void FixedUpdate()
     {

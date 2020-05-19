@@ -118,6 +118,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   floatingMax: 2
   floatingDir: -1
+  ghostClip: {fileID: 8300000, guid: 727c90cef4c97c545a8860dda29b53b1, type: 3}
 --- !u!50 &1586104116205694849
 Rigidbody2D:
   serializedVersion: 4

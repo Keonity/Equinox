@@ -5,6 +5,7 @@ using UnityEngine;
 public class FireBullet : MonoBehaviour
 {
     public GameObject bullet;
+    public AudioClip fireClip;
     private float fireTimer = 0f;
     public float fireMax = 1f;
 
@@ -17,6 +18,7 @@ public class FireBullet : MonoBehaviour
         else
         {
             Instantiate(bullet, new Vector3(transform.position.x - 0.2f, transform.position.y + 0.1f, transform.position.z), transform.rotation);
+            AudioSource.PlayClipAtPoint(fireClip, transform.position);
             fireTimer = 0f;
         }
     }
