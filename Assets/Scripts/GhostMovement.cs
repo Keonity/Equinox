@@ -5,24 +5,16 @@ using UnityEngine;
 public class GhostMovement : MonoBehaviour
 {
     private float floatingTimer = 0f;
-    public float floatingMax = 1f;
+    public float floatingMax = 2f;
     public float floatingDir = 0.01f;
     public AudioClip ghostClip;
 
-    IEnumerator GhostSound(float time)
+    void Start()
     {
-        yield return new WaitForSeconds(time);
-        AudioSource.PlayClipAtPoint(ghostClip, transform.position);
     }
 
-    private void Start()
+    void Update()
     {
-        GhostSound(1f);
-    }
-
-    private void Update()
-    {
-        GhostSound(25f);
     }
 
     private void FixedUpdate()
@@ -37,6 +29,7 @@ public class GhostMovement : MonoBehaviour
         {
             floatingDir *= -1;
             floatingTimer = 0f;
+            AudioSource.PlayClipAtPoint(ghostClip, this.transform.position, 0.5f);
         }
     }
 

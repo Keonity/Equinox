@@ -11,6 +11,8 @@ public class PlayerMovement : MonoBehaviour
     public AudioClip runClip;
     public AudioClip iceClip;
     public AudioClip victoryClip;
+    public AudioClip defeatClip;
+    public AudioClip pauseClip;
 
     public float runSpeed = 25f;
 
@@ -25,6 +27,11 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            AudioSource.PlayClipAtPoint(pauseClip, this.transform.position);
+        }
+
         horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
 
         animator.SetFloat("Speed", Mathf.Abs(horizontalMove));
@@ -98,11 +105,13 @@ public class PlayerMovement : MonoBehaviour
         if (LayerMask.LayerToName(collision.gameObject.layer) == "Death")
         {
             animator.SetBool("isDead", true);
+            AudioSource.PlayClipAtPoint(defeatClip, this.transform.position);
         }
 
         else if (LayerMask.LayerToName(collision.gameObject.layer) == "Enemy")
         {
             animator.SetBool("isDead", true);
+            AudioSource.PlayClipAtPoint(defeatClip, this.transform.position);
         }
 
         else if (LayerMask.LayerToName(collision.gameObject.layer) == "Ice")

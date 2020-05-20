@@ -18,7 +18,7 @@ public class FireBullet : MonoBehaviour
         else
         {
             Instantiate(bullet, new Vector3(transform.position.x - 0.2f, transform.position.y + 0.1f, transform.position.z), transform.rotation);
-            AudioSource.PlayClipAtPoint(fireClip, transform.position);
+            AudioSource.PlayClipAtPoint(fireClip, transform.position, 0.5f);
             fireTimer = 0f;
         }
     }
